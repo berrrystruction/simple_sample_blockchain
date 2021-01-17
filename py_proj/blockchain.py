@@ -14,8 +14,9 @@ from datetime import datetime
 
 # Argument parsing
 ap = argparse.ArgumentParser();
-ap.add_argument("-n", "-number", required=True, help="number of blocks to add to the chain")
-args = vars(ap.parse_args)
+ap.add_argument("n1", default=15, help="Number of blocks to add to the chain")
+args = vars(ap.parse_args())
+
 
 class Block:
     def __init__(self, index, timestamp, data, previous_hash):
@@ -40,19 +41,21 @@ def create_genesis_block():
 def next_block(last_block):
     this_index = last_block.index + 1
     this_timestamp = datetime.now()
-    print('ciao,', this_timestamp)
     this_data = "Hey! I'm block " + str(this_index)
     this_hash = last_block.hash
     return Block(this_index, this_timestamp, this_data, this_hash)
 
-def main(num_of_blocks_to_add):
+def main(num_of_blocks_to_add_str):
     print('MyBlockchain v1.0')
+    print(num_of_blocks_to_add_str)
 
+    num_of_blocks_to_add = int(num_of_blocks_to_add_str)
     blockchain = [create_genesis_block()]
     previous_block = blockchain[0]
     
-    if num_of_blocks_to_add == '{}' or num_of_blocks_to_add < 0:
-        num_of_blocks_to_add = 15
+    if num_of_blocks_to_add < 0: # num_of_blocks_to_add == '{}':
+    # default value    
+        num_of_blocks_to_add = 1
 
     for i in range(0, num_of_blocks_to_add):
         block_to_add = next_block(previous_block)
@@ -63,4 +66,4 @@ def main(num_of_blocks_to_add):
         print("Hash: {}n".format(block_to_add.hash))
 
 #if _name_ == '_main_':
-main(args)
+main(args['n1'])
