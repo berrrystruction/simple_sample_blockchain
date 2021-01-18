@@ -46,8 +46,9 @@ def next_block(last_block):
     return Block(this_index, this_timestamp, this_data, this_hash)
 
 def main(num_of_blocks_to_add_str):
-    print('MyBlockchain v1.0')
-    print(num_of_blocks_to_add_str)
+    print('MyBlockchain v1.1.0')
+    print('---------------------------------')
+    #print(num_of_blocks_to_add_str)
 
     num_of_blocks_to_add = int(num_of_blocks_to_add_str)
     blockchain = [create_genesis_block()]
@@ -65,5 +66,5 @@ def main(num_of_blocks_to_add_str):
         print("Block #{} has been added to the blockchain!".format(block_to_add.index))
         print("Hash: {}n".format(block_to_add.hash))
 
-#if _name_ == '_main_':
-main(args['n1'])
+if __name__ == '__main__':
+    main(args['n1'])
